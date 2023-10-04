@@ -1,22 +1,67 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
+     body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #000;
+            height: 100%;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(255, 140, 0, 0.1); /* Light orange background for the container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            position: relative; /* Added for positioning child elements */
+        }
+
+        .grid {
+            background-image: linear-gradient(90deg, rgba(255, 140, 0, 0.5) 1px, transparent 1px),
+                linear-gradient(rgba(255, 140, 0, 0.5) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: 'Open Sans', sans-serif; /* Apply a nice font-family */
+            font-size: 24px; /* Adjust font size as needed */
+            font-weight: bold; /* Adjust font weight as needed */
+            color: #ff6600; /* Set logo color to orange (#ff6600) */
+            text-transform: uppercase; /* Convert text to uppercase */
+            letter-spacing: 2px; /* Add letter spacing for a more spaced-out look */
+        }
+        
 
 #imageUpload,
 #watermarkUpload,
 #horizontalCount,
-#verticalCount {
-    margin-bottom: 10px;
-    padding: 8px;
+#verticalCount,
+#imageFormat {
+    margin-bottom: 20px;
+    padding: 10px;
     font-size: 16px;
+    width: 80%; /* Set a width for input fields */
+    border: 1px solid #ced4da; /* Gray Border */
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#imageFormat {
+    width: auto; /* Auto width for the format display block */
+    background-color: #d1e7dd; /* Light Green Background */
+    color: #155724; /* Dark Green Text Color */
+    border: 1px solid #c3e6cb; /* Green Border */
 }
 
 #createCollage {
-    background-color: #4CAF50;
+    background-color: #28a745; /* Green Button Background */
     color: white;
     padding: 12px 20px;
     border: none;
@@ -24,10 +69,11 @@ body {
     cursor: pointer;
     font-size: 18px;
     transition: background-color 0.3s;
+    width: 30%; /* Set a width for the button */
 }
 
 #createCollage:hover {
-    background-color: #45a049;
+    background-color: #218838; /* Darker Green on Hover */
 }
 
 #collageResult {
@@ -38,86 +84,41 @@ body {
     max-width: 100%;
     height: auto;
     margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-} */
+#watermarkUpload {
+    display: block;
+    margin-top: 20px;
+    width: 80%; /* Set a width for the watermark upload input */
+}
 
 .upload-field {
     margin-top: 20px;
     text-align: center;
+    width: 40%; /* Set a width for the upload field container */
 }
 
 .drop-zone {
     border: 2px dashed #ccc;
-    padding: 5px;
+    padding: 20px;
     cursor: pointer;
     background-color: #ffffff;
+    border-radius: 5px;
 }
 
 #uploadedImages {
     margin-top: 20px;
 }
 
-.drop-zone.drag-over {
-    border-color: #4caf50;
-}
-
-input[type="file"] {
-    display: none;
-}
-
 #horizontalCount,
 #verticalCount {
-    width: 50px;
+    width: 100px;
     margin: 0 10px;
 }
-
-#createCollage {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-#createCollage:hover {
-    background-color: #45a049;
-}
-
-#collageResult {
-    margin-top: 20px;
-}
-
-/* Optional: Style the generated collage image */
-#collageResult img {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#watermarkUpload {
-    display: block;
-    margin-top: 10px;
-}
-
-#collageResult {
-    max-width: 1000px; 
-    max-height: 000px; 
-}
-
 
 #collagePreview {
     width: 100%; 
     height: 100%; 
 }
 
-#imageFormat {
-    margin-top: 10px;
-}
