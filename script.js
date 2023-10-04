@@ -70,8 +70,6 @@ document.getElementById('createCollage').addEventListener('click', function() {
         }
         
 
-        
-
         let watermarkCanvas = document.createElement('canvas');
         let watermarkContext = watermarkCanvas.getContext('2d');
         watermarkCanvas.width = canvas.width;
