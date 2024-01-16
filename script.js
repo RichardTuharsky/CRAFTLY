@@ -118,5 +118,4 @@ document.getElementById('createCollage').addEventListener('click', function() {
             }, 'image/png');
         };
     });
-
 });
