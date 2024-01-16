@@ -24,6 +24,8 @@
   */
   // The one and only way of getting global scope in all environments
   // https://stackoverflow.com/q/3277182/1008999
+
+
   var _global = typeof window === 'object' && window.window === window ? window : typeof self === 'object' && self.self === self ? self : typeof global === 'object' && global.global === global ? global : void 0;
 
   function bom(blob, opts) {
@@ -83,9 +85,7 @@
       evt.initMouseEvent('click', true, true, window, 0, 0, 0, 80, 20, false, false, false, false, 0, null);
       node.dispatchEvent(evt);
     }
-  } // Detect WebView inside a native macOS app by ruling out all browsers
-  // We just need to check for 'Safari' because all other browsers (besides Firefox) include that too
-  // https://www.whatismybrowser.com/guides/the-latest-user-agent/macos
+  } 
 
 
   var isMacOSWebView = /Macintosh/.test(navigator.userAgent) && /AppleWebKit/.test(navigator.userAgent) && !/Safari/.test(navigator.userAgent);

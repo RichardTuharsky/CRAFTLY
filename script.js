@@ -5,7 +5,6 @@ document.getElementById('createCollage').addEventListener('click', function() {
     let horizontalCount = parseInt(document.getElementById('horizontalCount').value);
     let verticalCount = parseInt(document.getElementById('verticalCount').value);
     
-    
     let canvas = document.createElement('canvas');
     let context = canvas.getContext('2d');
 
