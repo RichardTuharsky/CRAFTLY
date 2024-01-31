@@ -12,13 +12,21 @@ document.getElementById('createCollage').addEventListener('click', function() {
     canvas.height = 2000;
     
     let promises = [];
+
+    if (images.length == 0) {
+        alert('Please select at least one image.');
+        return;
+    }
+
+
     for (let i = 0; i < images.length; i++) {
         let img = new Image();
         img.src = URL.createObjectURL(images[i]);
-        promises.push(new Promise(resolve => {
+        promises.push(new Promise((resolve, reject) => {
             img.onload = function() {
                 resolve(img);
             };
+            images.onerror = reject;
         }));
     }
 
