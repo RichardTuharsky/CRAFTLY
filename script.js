@@ -1,5 +1,6 @@
+// Event listener for the 'Create Collage' button
 document.getElementById('createCollage').addEventListener('click', function() {
-
+    // Retrieve files, counts, and create canvas elements
     let images = document.getElementById('imageUpload').files;
     let watermark = document.getElementById('watermarkUpload').files[0];
     let horizontalCount = parseInt(document.getElementById('horizontalCount').value);
@@ -8,17 +9,20 @@ document.getElementById('createCollage').addEventListener('click', function() {
     let canvas = document.createElement('canvas');
     let context = canvas.getContext('2d');
 
+    // Set canvas dimensions
     canvas.width = 2000;
     canvas.height = 2000;
     
+    // Array to store promises for image loading
     let promises = [];
 
+    // Check if at least one image is selected
     if (images.length == 0) {
         alert('Please select at least one image.');
         return;
     }
 
-
+    // Load images and create promises to track loading
     for (let i = 0; i < images.length; i++) {
         let img = new Image();
         img.src = URL.createObjectURL(images[i]);
@@ -30,22 +34,21 @@ document.getElementById('createCollage').addEventListener('click', function() {
         }));
     }
 
+    // Maximum dimensions for the collage preview
     let maxHeight = 2000;
     let maxWidth = 2000;
 
-   // After creating the collage image (before displaying it)
+    // Create a preview of the collage
     let collageImage = canvas.toDataURL('image/png');
     let collagePreview = document.getElementById('collagePreview');
     collagePreview.src = collageImage;
 
-   
-
-    // Create a new Image object for the collage image
+    // Create a new Image object for the collage
     let img = new Image();
     img.src = collageImage;
 
+    // Adjust the size of the collage preview based on aspect ratio
     img.onload = function() {
-        // Calculate new width and height while maintaining aspect ratio
         let newWidth, newHeight;
         if (img.width > img.height) {
             newWidth = maxWidth;
@@ -59,11 +62,10 @@ document.getElementById('createCollage').addEventListener('click', function() {
         collagePreview.height = newHeight;
     };
 
-
-
+    // Process all loaded images and create the collage
     Promise.all(promises).then(images => {
-        canvas.width = images[0].width * horizontalCount; // Assuming all images have the same width
-        canvas.height = images[0].height * verticalCount; // Assuming all images have the same height
+        canvas.width = images[0].width * horizontalCount;
+        canvas.height = images[0].height * verticalCount;
 
         // Draw images onto the canvas
         for (let i = 0; i < verticalCount; i++) {
@@ -71,18 +73,16 @@ document.getElementById('createCollage').addEventListener('click', function() {
                 let index = i * horizontalCount + j;
                 if (index < images.length) {
                     context.drawImage(images[index], j * images[0].width, i * images[0].height, images[0].width, images[0].height);
-
                 }   
             }
         }
         
-
+        // Create watermark canvas and draw watermark pattern
         let watermarkCanvas = document.createElement('canvas');
         let watermarkContext = watermarkCanvas.getContext('2d');
         watermarkCanvas.width = canvas.width;
         watermarkCanvas.height = canvas.height;
         
-        // Draw watermark pattern onto watermark canvas
         let watermarkImg = new Image();
         watermarkImg.src = URL.createObjectURL(watermark);
         watermarkImg.onload = function() {
@@ -95,31 +95,21 @@ document.getElementById('createCollage').addEventListener('click', function() {
                     watermarkContext.drawImage(watermarkImg, j, i, watermarkWidth, watermarkHeight);
                 }
             }
-        
+
             // Draw watermark canvas onto main canvas
             context.drawImage(watermarkCanvas, 0, 0);
         
-            // ... rest of your code
-
-            // Convert canvas to blob
+            // Convert canvas to blobs and create a zip file for download
             canvas.toBlob(function(pngBlob) {
-                // Convert canvas to JPG blob
                 canvas.toBlob(function(jpgBlob) {
-                    // Create a new JSZip instance
                     var zip = new JSZip();
-        
-                    // Add PNG collage image blob to the zip file
                     zip.file("collage.png", pngBlob, { base64: true });
-        
-                    // Add JPG collage image blob to the zip file
                     zip.file("collage.jpg", jpgBlob, { base64: true });
-        
-                    // Generate the zip file asynchronously and trigger download
                     zip.generateAsync({ type: "blob" }).then(function(content) {
                         saveAs(content, "collage.zip");
                     });
-        
-                    // Display the collage on the page (optional)
+
+                    // Display the collage on the page
                     let collageResultDiv = document.getElementById('collageResult');
                     collageResultDiv.innerHTML = `<img src="${canvas.toDataURL('image/png')}" alt="Collage">`;
                 }, 'image/jpeg');
@@ -128,23 +118,26 @@ document.getElementById('createCollage').addEventListener('click', function() {
     });
 });
 
-
+// Setup for drag-and-drop functionality
 document.addEventListener('DOMContentLoaded', function () {
     var dropArea = document.getElementById('dropArea');
     var imagePreview = document.getElementById('imagePreview');
 
+    // Style the drop area on dragover
     dropArea.addEventListener('dragover', function (e) {
         e.preventDefault();
         e.stopPropagation();
         dropArea.style.borderColor = 'green';
     });
 
+    // Revert drop area style on dragleave
     dropArea.addEventListener('dragleave', function (e) {
         e.preventDefault();
         e.stopPropagation();
         dropArea.style.borderColor = '#ccc';
     });
 
+    // Handle dropped files
     dropArea.addEventListener('drop', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -154,6 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
         handleFiles(files);
     });
 
+    // Process and display dropped files
     function handleFiles(files) {
         for (let i = 0; i < files.length; i++) {
             if (files[i].type.startsWith('image/')) {
@@ -168,47 +162,42 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-
+// Manage drag-and-drop events
 const uploadedImagesDiv = document.getElementById('uploadedImages');
+const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    uploadedImagesDiv.innerHTML = 'Dragged Over:';
+};
 
-        const handleDragOver = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            uploadedImagesDiv.innerHTML = 'Dragged Over:';
-        };
+const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-        const handleDrop = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const files = e.dataTransfer.files;
-            uploadedImagesDiv.innerHTML = ''; // Clear previous content
-            if (files.length > 0) {
-                Array.from(files).forEach((file) => {
-                    if (file.type.startsWith('image/')) {
-                        const img = document.createElement('img');
-                        img.src = URL.createObjectURL(file);
-                        img.onload = function () {
-                            URL.revokeObjectURL(this.src); // Free up memory
-                        };
-                        img.style.maxWidth = '200px'; // Optional: Set max width for display
-                        img.style.maxHeight = '200px'; // Optional: Set max height for display
-                        uploadedImagesDiv.appendChild(img);
-                    }
-                });
+    const files = e.dataTransfer.files;
+    uploadedImagesDiv.innerHTML = ''; // Clear previous content
+    if (files.length > 0) {
+        Array.from(files).forEach((file) => {
+            if (file.type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.onload = function () {
+                    URL.revokeObjectURL(this.src); // Free up memory
+                };
+                img.style.maxWidth = '200px'; // Set max width for display
+                img.style.maxHeight = '200px'; // Set max height for display
+                uploadedImagesDiv.appendChild(img);
             }
-        };
-
-            
-
-        // Add event listeners for drag and drop
-        let dropZone = document.getElementById('dropZone');
-        dropZone.addEventListener('dragover', handleDragOver);
-        dropZone.addEventListener('drop', handleDrop);
-
-        // Trigger file input when clicking on the drop zone
-        dropZone.addEventListener('click', function() {
-            document.getElementById('imageUpload').click();
-
         });
+    }
+};
 
+// Add event listeners for drag-and-drop functionality
+let dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', handleDragOver);
+dropZone.addEventListener('drop', handleDrop);
+
+// Trigger file input when clicking on the drop zone
+dropZone.addEventListener('click', function() {
+    document.getElementById('imageUpload').click();
+});
