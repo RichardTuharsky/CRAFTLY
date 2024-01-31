@@ -167,3 +167,48 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+
+const uploadedImagesDiv = document.getElementById('uploadedImages');
+
+        const handleDragOver = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadedImagesDiv.innerHTML = 'Dragged Over:';
+        };
+
+        const handleDrop = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const files = e.dataTransfer.files;
+            uploadedImagesDiv.innerHTML = ''; // Clear previous content
+            if (files.length > 0) {
+                Array.from(files).forEach((file) => {
+                    if (file.type.startsWith('image/')) {
+                        const img = document.createElement('img');
+                        img.src = URL.createObjectURL(file);
+                        img.onload = function () {
+                            URL.revokeObjectURL(this.src); // Free up memory
+                        };
+                        img.style.maxWidth = '200px'; // Optional: Set max width for display
+                        img.style.maxHeight = '200px'; // Optional: Set max height for display
+                        uploadedImagesDiv.appendChild(img);
+                    }
+                });
+            }
+        };
+
+            
+
+        // Add event listeners for drag and drop
+        let dropZone = document.getElementById('dropZone');
+        dropZone.addEventListener('dragover', handleDragOver);
+        dropZone.addEventListener('drop', handleDrop);
+
+        // Trigger file input when clicking on the drop zone
+        dropZone.addEventListener('click', function() {
+            document.getElementById('imageUpload').click();
+
+        });
+
