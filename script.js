@@ -1,3 +1,91 @@
+document.addEventListener('DOMContentLoaded', function () {
+    var dropArea = document.getElementById('dropArea');
+    var imagePreview = document.getElementById('imagePreview');
+
+    // Style the drop area on dragover
+    dropArea.addEventListener('dragover', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropArea.style.borderColor = 'green';
+    });
+
+    // Revert drop area style on dragleave
+    dropArea.addEventListener('dragleave', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropArea.style.borderColor = '#ccc';
+    });
+
+    // Handle dropped files
+    dropArea.addEventListener('drop', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropArea.style.borderColor = '#ccc';
+
+        var files = e.dataTransfer.files;
+        handleFiles(files);
+    });
+
+    // Process and display dropped files
+    function handleFiles(files) {
+        for (let i = 0; i < files.length; i++) {
+            if (files[i].type.startsWith('image/')) {
+                var img = new Image();
+                img.src = URL.createObjectURL(files[i]);
+                img.onload = function () {
+                    URL.revokeObjectURL(this.src);
+                };
+                imagePreview.appendChild(img);
+            }
+        }
+    }
+});
+
+
+// Manage drag-and-drop events
+const uploadedImagesDiv = document.getElementById('uploadedImages');
+const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    uploadedImagesDiv.innerHTML = 'Dragged Over:';
+};
+
+const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const files = e.dataTransfer.files;
+    uploadedImagesDiv.innerHTML = ''; // Clear previous content
+    if (files.length > 0) {
+        Array.from(files).forEach((file) => {
+            if (file.type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.onload = function () {
+                    URL.revokeObjectURL(this.src); // Free up memory
+                };
+                img.style.maxWidth = '200px'; // Set max width for display
+                img.style.maxHeight = '200px'; // Set max height for display
+                uploadedImagesDiv.appendChild(img);
+            }
+        });
+    }
+};
+
+// Add event listeners for drag-and-drop functionality
+let dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', handleDragOver);
+dropZone.addEventListener('drop', handleDrop);
+
+// Trigger file input when clicking on the drop zone
+dropZone.addEventListener('click', function() {
+    document.getElementById('imageUpload').click();
+});
+
+
+
+
+
 // Event listener for the 'Create Collage' button
 document.getElementById('createCollage').addEventListener('click', function() {
     // Retrieve files, counts, and create canvas elements
@@ -17,11 +105,7 @@ document.getElementById('createCollage').addEventListener('click', function() {
     let promises = [];
 
     // Check if at least one image is selected
-    if (images.length == 0) {
-        alert('Please select at least one image.');
-        return;
-    }
-
+  
     // Load images and create promises to track loading
     for (let i = 0; i < images.length; i++) {
         let img = new Image();
@@ -64,7 +148,12 @@ document.getElementById('createCollage').addEventListener('click', function() {
 
     // Process all loaded images and create the collage
     Promise.all(promises).then(images => {
-        canvas.width = images[0].width * horizontalCount;
+        console.log(images);
+        if (images.length > 0 && images[0].width) {
+            canvas.width = images[0].width * horizontalCount;
+        } else {
+            console.error('No images or invalid image width');
+        }
         canvas.height = images[0].height * verticalCount;
 
         // Draw images onto the canvas
@@ -118,86 +207,5 @@ document.getElementById('createCollage').addEventListener('click', function() {
     });
 });
 
+
 // Setup for drag-and-drop functionality
-document.addEventListener('DOMContentLoaded', function () {
-    var dropArea = document.getElementById('dropArea');
-    var imagePreview = document.getElementById('imagePreview');
-
-    // Style the drop area on dragover
-    dropArea.addEventListener('dragover', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        dropArea.style.borderColor = 'green';
-    });
-
-    // Revert drop area style on dragleave
-    dropArea.addEventListener('dragleave', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        dropArea.style.borderColor = '#ccc';
-    });
-
-    // Handle dropped files
-    dropArea.addEventListener('drop', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        dropArea.style.borderColor = '#ccc';
-
-        var files = e.dataTransfer.files;
-        handleFiles(files);
-    });
-
-    // Process and display dropped files
-    function handleFiles(files) {
-        for (let i = 0; i < files.length; i++) {
-            if (files[i].type.startsWith('image/')) {
-                var img = new Image();
-                img.src = URL.createObjectURL(files[i]);
-                img.onload = function () {
-                    URL.revokeObjectURL(this.src);
-                };
-                imagePreview.appendChild(img);
-            }
-        }
-    }
-});
-
-// Manage drag-and-drop events
-const uploadedImagesDiv = document.getElementById('uploadedImages');
-const handleDragOver = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    uploadedImagesDiv.innerHTML = 'Dragged Over:';
-};
-
-const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const files = e.dataTransfer.files;
-    uploadedImagesDiv.innerHTML = ''; // Clear previous content
-    if (files.length > 0) {
-        Array.from(files).forEach((file) => {
-            if (file.type.startsWith('image/')) {
-                const img = document.createElement('img');
-                img.src = URL.createObjectURL(file);
-                img.onload = function () {
-                    URL.revokeObjectURL(this.src); // Free up memory
-                };
-                img.style.maxWidth = '200px'; // Set max width for display
-                img.style.maxHeight = '200px'; // Set max height for display
-                uploadedImagesDiv.appendChild(img);
-            }
-        });
-    }
-};
-
-// Add event listeners for drag-and-drop functionality
-let dropZone = document.getElementById('dropZone');
-dropZone.addEventListener('dragover', handleDragOver);
-dropZone.addEventListener('drop', handleDrop);
-
-// Trigger file input when clicking on the drop zone
-dropZone.addEventListener('click', function() {
-    document.getElementById('imageUpload').click();
-});

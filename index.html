@@ -1,65 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Etsy Seller Collage App</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="font-sans bg-gray-100 flex flex-col items-center p-8">
-    <div class="logo">Artfuly</div>
-
-    <div class="upload-field">
-            <div class="drop-zone" id="dropZone">
-            <p>Drag and drop images here or click to select</p>
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>Etsy Seller Collage App</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    </head>
+    <body class="font-sans bg-gray-100 flex flex-col items-center p-8">
+        <div class="logo">Artfuly</div>
+        
+        <div class="upload-field">
+            <div class="drop-area" id="dropArea">
+                <div class="drop-zone" id="dropZone">
+                    <div class="drag-over" id="dragOver">
+                        <p>Drag and drop images here or click to select</p>
+                        <input type="file" accept="image/*" style="display: none;" id="imageUpload" multiple />
+                    </div>
+                    <div id="imagePreview"></div>
+                </div>
+            </div>
         </div>
-        <input type="file" accept="image/*" style="display: none;" id="imageUpload" multiple />
-    </div>
-    <div id="uploadedImages"></div>
-    <p style="font-weight: bold;">Upload watermark</p>
-
-    <input type="file" id="watermarkUpload" accept="image/*"
-    class="mb-4 p-2 text-lg w-full max-w-xs border border-gray-300 rounded focus:outline-none focus:border-blue-500">
-
-
-    <div class="flex justify-center mb-4">
-        <label for="horizontalCount" class="mr-4">Horizontal Count:</label>
-        <input type="number" id="horizontalCount" class="p-2 text-lg w-20 border border-gray-300 rounded">
-        <label for="verticalCount" class="ml-4">Vertical Count:</label>
-        <input type="number" id="verticalCount" class="p-2 text-lg w-20 border border-gray-300 rounded">
-    </div>
-
-    <div class="flex justify-center mb-4">
-        <label for="resolution" class="mr-4">Resolution:</label>
-        <select id="resolution" class="p-2 text-lg border border-gray-300 rounded">
-            <option value="2000">2000x2000</option>
-            <option value="1500">1500x1500</option>
-        </select>
-    </div>
-    <button id="createCollage"
+        <div id="uploadedImages"></div>
+        <p style="font-weight: bold;">Upload watermark</p>
+        
+        <input type="file" id="watermarkUpload" accept="image/*"
+        class="mb-4 p-2 text-lg w-full max-w-xs border border-gray-300 rounded focus:outline-none focus:border-blue-500">
+        
+        
+        <div class="flex justify-center mb-4">
+            <label for="horizontalCount" class="mr-4">Horizontal Count:</label>
+            <input type="number" id="horizontalCount" class="p-2 text-lg w-20 border border-gray-300 rounded">
+            <label for="verticalCount" class="ml-4">Vertical Count:</label>
+            <input type="number" id="verticalCount" class="p-2 text-lg w-20 border border-gray-300 rounded">
+        </div>
+        
+        <div class="flex justify-center mb-4">
+            <label for="resolution" class="mr-4">Resolution:</label>
+            <select id="resolution" class="p-2 text-lg border border-gray-300 rounded">
+                <option value="2000">2000x2000</option>
+                <option value="1500">1500x1500</option>
+            </select>
+        </div>
+        <button id="createCollage"
         class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded transition duration-300">Create
         Collage</button>
     </div>
-
+    
     <div id="collageResult">
-    <img id="collagePreview">
+        <img id="collagePreview">
     </div>
-
+    
     <div class="loading-spinner mt-8 hidden">
-    <div class="w-12 h-12 border-t-4 border-green-500 rounded-full animate-spin"></div>
+        <div class="w-12 h-12 border-t-4 border-green-500 rounded-full animate-spin"></div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/file-saver@latest/dist/FileSaver.min.js"></script>
     <script src="html2canvas.min.js"></script>
     <script src="jszip.min.js"></script>
-    <script src="script.js"></script>
-    <script>
-        
-    </script>
-
- 
+    <script></script>
+    
+    
+    <script src="script.js" defer></script>
 </body>
 
 </html>
