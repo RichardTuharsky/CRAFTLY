@@ -88,6 +88,10 @@ dropZone.addEventListener('click', function() {
 
 // Event listener for the 'Create Collage' button
 document.getElementById('createCollage').addEventListener('click', function() {
+    // console.log(document.getElementById('overlay')); // This should not be null
+
+    document.getElementById('overlay').style.display = 'flex';
+
     // Retrieve files, counts, and create canvas elements
     let images = document.getElementById('imageUpload').files;
     let watermark = document.getElementById('watermarkUpload').files[0];
@@ -145,7 +149,7 @@ document.getElementById('createCollage').addEventListener('click', function() {
         collagePreview.width = newWidth;
         collagePreview.height = newHeight;
     };
-
+    
     // Process all loaded images and create the collage
     Promise.all(promises).then(images => {
         console.log(images);
@@ -153,9 +157,10 @@ document.getElementById('createCollage').addEventListener('click', function() {
             canvas.width = images[0].width * horizontalCount;
         } else {
             console.error('No images or invalid image width');
+            // document.getElementById('loadingMessage').style.display = 'none';
         }
         canvas.height = images[0].height * verticalCount;
-
+        
         // Draw images onto the canvas
         for (let i = 0; i < verticalCount; i++) {
             for (let j = 0; j < horizontalCount; j++) {
@@ -204,6 +209,7 @@ document.getElementById('createCollage').addEventListener('click', function() {
                 }, 'image/jpeg');
             }, 'image/png');
         };
+
     });
 });
 
