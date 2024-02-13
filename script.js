@@ -90,7 +90,7 @@ dropZone.addEventListener('click', function() {
 document.getElementById('createCollage').addEventListener('click', function() {
     // console.log(document.getElementById('overlay')); // This should not be null
 
-    document.getElementById('overlay').style.display = 'flex';
+    // document.getElementById('overlay ').style.display = 'flex';
 
     // Retrieve files, counts, and create canvas elements
     let images = document.getElementById('imageUpload').files;
@@ -154,19 +154,37 @@ document.getElementById('createCollage').addEventListener('click', function() {
     Promise.all(promises).then(images => {
         console.log(images);
         if (images.length > 0 && images[0].width) {
-            canvas.width = images[0].width * horizontalCount;
+            // Calculate total width and height for all images
+            let totalWidth = images[0].width * horizontalCount;
+            let totalHeight = images[0].height * verticalCount;
+
+            // Calculate the aspect ratio
+            let aspectRatio = totalWidth / totalHeight;
+
+            // Determine the new dimensions based on the maximum allowed size
+            if (totalWidth > totalHeight) {
+                canvas.width = Math.min(2000, totalWidth);
+                canvas.height = Math.min(2000, canvas.width / aspectRatio);
+            } else {
+                canvas.height = Math.min(2000, totalHeight);
+                canvas.width = Math.min(2000, canvas.height * aspectRatio);
+            }
         } else {
             console.error('No images or invalid image width');
-            // document.getElementById('loadingMessage').style.display = 'none';
         }
-        canvas.height = images[0].height * verticalCount;
         
         // Draw images onto the canvas
+        let scaleWidth = canvas.width / (images[0].width * horizontalCount);
+        let scaleHeight = canvas.height / (images[0].height * verticalCount);
+
+        // Draw images onto the canvas with adjusted scale
         for (let i = 0; i < verticalCount; i++) {
             for (let j = 0; j < horizontalCount; j++) {
                 let index = i * horizontalCount + j;
                 if (index < images.length) {
-                    context.drawImage(images[index], j * images[0].width, i * images[0].height, images[0].width, images[0].height);
+                    let scaledWidth = images[index].width * scaleWidth;
+                    let scaledHeight = images[index].height * scaleHeight;
+                    context.drawImage(images[index], j * scaledWidth, i * scaledHeight, scaledWidth, scaledHeight);
                 }   
             }
         }
@@ -189,7 +207,7 @@ document.getElementById('createCollage').addEventListener('click', function() {
                     watermarkContext.drawImage(watermarkImg, j, i, watermarkWidth, watermarkHeight);
                 }
             }
-
+            
             // Draw watermark canvas onto main canvas
             context.drawImage(watermarkCanvas, 0, 0);
         
