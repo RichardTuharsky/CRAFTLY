@@ -147,3 +147,16 @@
     gap: 15px; /* Optional: Adds some space between the images */
 }
 
+
+#texts{
+    display: flex;
+
+}
+
+#logo {
+    margin-top: 0;
+    margin-bottom: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}       

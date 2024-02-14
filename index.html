@@ -9,8 +9,9 @@
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     </head>
     <body class="font-roboto bg-gray-100 flex flex-col items-center p-8">
-        <header class="text-4xl font-bold text-indigo-600 mb-8">Artfuly</header>
-        
+        <header class="mb-8">
+            <img src="logo.png" alt="Artfuly Logo" class="w-48" id="logo">
+        </header>
         <section class="upload-field">
             <div class="drop-area" id="dropArea">
                 <div class="drop-zone" id="dropZone">
@@ -26,7 +27,7 @@
         <input type="file" id="watermarkUpload" accept="image/*"
        class="mb-4 p-2 text-lg w-full max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg border border-gray-300 rounded focus:outline-none focus:border-blue-500 min-h-[100px]">
         
-        <div class="flex justify-center mb-7    ">
+        <div class="flex justify-center mb-7 " id="texts">
             <label for="horizontalCount" class="mr-4">Horizontal Count:</label>
             <input type="number" id="horizontalCount" class="p-2 text-lg w-20 border border-gray-300 rounded">
             <label for="verticalCount" class="ml-4">Vertical Count:</label>
