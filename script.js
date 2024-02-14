@@ -26,15 +26,22 @@ document.addEventListener('DOMContentLoaded', function () {
         handleFiles(files);
     });
 
+    document.getElementById('imageUpload').addEventListener('change', function(e) {
+        var files = e.target.files;
+        handleFiles(files);
+    });
+
     // Process and display dropped files
     function handleFiles(files) {
         for (let i = 0; i < files.length; i++) {
             if (files[i].type.startsWith('image/')) {
-                var img = new Image();
+                var img = document.createElement('img'); // Changed from new Image() to document.createElement('img')
                 img.src = URL.createObjectURL(files[i]);
                 img.onload = function () {
                     URL.revokeObjectURL(this.src);
                 };
+                img.style.maxWidth = '100px'; // Ensure images are visible within the container
+                img.style.height = '100px'; // Maintain aspect ratio
                 imagePreview.appendChild(img);
             }
         }

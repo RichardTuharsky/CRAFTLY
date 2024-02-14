@@ -3,58 +3,41 @@
     
     <head>
         <meta charset="UTF-8">
-        <title>Etsy Seller Collage App</title>
+        <title>Artfuly</title>
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     </head>
-    <body class="font-sans bg-gray-100 flex flex-col items-center p-8">
-        <div class="logo">Artfuly</div>
+    <body class="font-roboto bg-gray-100 flex flex-col items-center p-8">
+        <header class="text-4xl font-bold text-indigo-600 mb-8">Artfuly</header>
         
-        <div class="upload-field">
+        <section class="upload-field">
             <div class="drop-area" id="dropArea">
                 <div class="drop-zone" id="dropZone">
-                    <div class="drag-over" id="dragOver">
-                        <p>Drag and drop images here or click to select</p>
-                        <input type="file" accept="image/*" style="display: none;" id="imageUpload" multiple />
-                    </div>
-                    <div id="imagePreview"></div>
+                    <p>Drag and drop images here or click to select</p>
                 </div>
             </div>
-        </div>
+        </section>
+        <input type="file" accept="image/*" hidden id="imageUpload" multiple />
+        <div id="imagePreview"></div>
         <div id="uploadedImages"></div>
-        <p style="font-weight: bold;">Upload watermark</p>
+        <p class="font-bold">Upload watermark</p>
         
         <input type="file" id="watermarkUpload" accept="image/*"
-        class="mb-4 p-2 text-lg w-full max-w-xs border border-gray-300 rounded focus:outline-none focus:border-blue-500">
+       class="mb-4 p-2 text-lg w-full max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg border border-gray-300 rounded focus:outline-none focus:border-blue-500 min-h-[100px]">
         
-        
-        <div class="flex justify-center mb-4">
+        <div class="flex justify-center mb-7    ">
             <label for="horizontalCount" class="mr-4">Horizontal Count:</label>
             <input type="number" id="horizontalCount" class="p-2 text-lg w-20 border border-gray-300 rounded">
             <label for="verticalCount" class="ml-4">Vertical Count:</label>
             <input type="number" id="verticalCount" class="p-2 text-lg w-20 border border-gray-300 rounded">
         </div>
         
-        <!-- <div class="flex justify-center mb-4">
-            <label for="resolution" class="mr-4">Resolution:</label>
-            <select id="resolution" class="p-2 text-lg border border-gray-300 rounded">
-                <option value="2000">2000x2000</option>
-                <option value="1500">1500x1500</option>
-            </select>   
-        </div> -->
         <button id="createCollage"
         class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded transition duration-300">Create
         Collage</button>
 
     </div>
-    <!-- <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 2; text-align: center; align-items: center; justify-content: center;">
-        <div style="position: relative; top: 50%; transform: translateY(-50%);">
-            <p style="color: white; font-size: 2em;">We are doing the magic, please wait...</p>
-        </div>
-    </div> -->
-    
-    
     
     <div id="collageResult">
         <img id="collagePreview">
@@ -67,9 +50,6 @@
     <script src="https://cdn.jsdelivr.net/npm/file-saver@latest/dist/FileSaver.min.js"></script>
     <script src="html2canvas.min.js"></script>
     <script src="jszip.min.js"></script>
-    <script></script>
-    
-    
     <script src="script.js" defer></script>
 </body>
 

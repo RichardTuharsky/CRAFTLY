@@ -1,41 +1,48 @@
      body {
-            font-family: Arial, sans-serif;
+            font-family: 'Open Sans', Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            background-color: #000;
-            height: 100%;
+            background-color: #282c34;
+            color: #abb2bf;
+            height: 100vh;
             margin: 0;
+            transition: all 0.3s ease;
         }
 
         .container {
-            background-color: rgba(255, 140, 0, 0.1); /* Light orange background for the container */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: rgba(98, 39, 116, 0.8); /* Dark purple background for the container */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 600px;
-            width: 100%;
+            max-width: 800px;
+            width: 90%;
             position: relative; /* Added for positioning child elements */
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
         }
 
         .grid {
-            background-image: linear-gradient(90deg, rgba(255, 140, 0, 0.5) 1px, transparent 1px),
-                linear-gradient(rgba(255, 140, 0, 0.5) 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-image: linear-gradient(45deg, rgba(98, 39, 116, 0.6) 1px, transparent 1px),
+                linear-gradient(135deg, rgba(98, 39, 116, 0.6) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
         .logo {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 30px;
+            left: 30px;
             font-family: 'Open Sans', sans-serif; /* Apply a nice font-family */
-            font-size: 24px; /* Adjust font size as needed */
+            font-size: 28px; /* Adjust font size as needed */
             font-weight: bold; /* Adjust font weight as needed */
-            color: #ff6600; /* Set logo color to orange (#ff6600) */
+            color: #61dafb; /* Set logo color to light blue */
             text-transform: uppercase; /* Convert text to uppercase */
-            letter-spacing: 2px; /* Add letter spacing for a more spaced-out look */
+            letter-spacing: 3px; /* Add letter spacing for a more spaced-out look */
         }
         
 
@@ -45,72 +52,76 @@
 #verticalCount,
 #imageFormat {
     margin-bottom: 20px;
-    padding: 10px;
-    font-size: 16px;
-    width: 80%; /* Set a width for input fields */
-    border: 1px solid #ced4da; /* Gray Border */
-    border-radius: 5px;
+    padding: 12px;
+    font-size: 18px;
+    width: 85%; /* Set a width for input fields */
+    border: 2px solid #61dafb; /* Light Blue Border */
+    border-radius: 8px;
     box-sizing: border-box;
+    background-color: #282c34;
+    color: #61dafb;
 }
 
 #imageFormat {
     width: auto; /* Auto width for the format display block */
-    background-color: #d1e7dd; /* Light Green Background */
-    color: #155724; /* Dark Green Text Color */
-    border: 1px solid #c3e6cb; /* Green Border */
+    background-color: #98c379; /* Light Green Background */
+    color: #282c34; /* Dark Text Color */
+    border: 2px solid #98c379; /* Green Border */
 }
 
 #createCollage {
-    background-color: #28a745; /* Green Button Background */
-    color: white;
-    padding: 12px 20px;
+    background-color: #e06c75; /* Red Button Background */
+    color: #282c34;
+    padding: 15px 25px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s;
-    width: 30%; /* Set a width for the button */
+    font-size: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 40%; /* Set a width for the button */
 }
 
 #createCollage:hover {
-    background-color: #218838; /* Darker Green on Hover */
+    background-color: #c678dd; /* Purple on Hover */
+    transform: scale(1.05);
 }
 
 #collageResult {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 #collageResult img {
-    width: 300px;  /* Set width to 200px */
-    height: 300px; /* Set height to 200px */
-    margin-top: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;  /* Set width to 400px */
+    height: 400px; /* Set height to 400px */
+    margin-top: 30px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 #watermarkUpload {
-    display: block;
-    margin-top: 20px;
-    width: 80%; /* Set a width for the watermark upload input */
+    flex-shrink: 0; /* Prevents the block from shrinking in a flex container */
+    min-width: 50px; /* Adjust as needed */
+    min-height: 65px; /* Adjust as needed */
 }
 
 .upload-field {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Adjust the gap between images */
+    gap: 15px; /* Adjust the gap between images */
     justify-content: center; /* Center the images */
     align-items: center; /* Align images vertically */ 
 }
 
 .drop-zone {
-    border: 2px dashed #ccc;
-    padding: 20px;
+    border: 3px dashed #61dafb;
+    padding: 30px;
     cursor: pointer;
-    background-color: #ffffff;
-    border-radius: 5px;
+    background-color: #282c34;
+    border-radius: 10px;
+    color: #61dafb;
 }
 
 #uploadedImages {
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center; /* Center the images */
@@ -119,12 +130,20 @@
 
 #horizontalCount,
 #verticalCount {
-    width: 100px;
-    margin: 0 10px;
+    width: 120px;
+    margin: 0 15px;
 }
 
 #collagePreview {
     width: 100%; 
-    height: 100%; 
+    height: auto; 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+#imagePreview {
+    display: flex;
+    flex-wrap: wrap; /* This allows items to wrap to the next line if the container width is exceeded */
+    justify-content: start; /* This aligns items to the start of the container */
+    gap: 15px; /* Optional: Adds some space between the images */
 }
 
