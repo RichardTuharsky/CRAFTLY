@@ -133,14 +133,13 @@ document.getElementById('createCollage').addEventListener('click', function() {
     let maxHeight = 2000;
     let maxWidth = 2000;
 
-    // Create a preview of the collage
-    let collageImage = canvas.toDataURL('image/png');
+    // Initially hide the collage preview
     let collagePreview = document.getElementById('collagePreview');
-    collagePreview.src = collageImage;
+    collagePreview.style.display = 'none';
 
     // Create a new Image object for the collage
     let img = new Image();
-    img.src = collageImage;
+    img.src = canvas.toDataURL('image/png');
 
     // Adjust the size of the collage preview based on aspect ratio
     img.onload = function() {
@@ -230,6 +229,7 @@ document.getElementById('createCollage').addEventListener('click', function() {
 
                     // Display the collage on the page
                     let collageResultDiv = document.getElementById('collageResult');
+                    collageResultDiv.style.display = 'block'; // Show the collage result div
                     collageResultDiv.innerHTML = `<img src="${canvas.toDataURL('image/png')}" alt="Collage">`;
                 }, 'image/jpeg');
             }, 'image/png');
